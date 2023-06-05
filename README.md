@@ -4,7 +4,7 @@ This program is designed to search for matches of a search term in a source text
 
 ## Program Requirements
 
-- The program is intended to run on Linux (Ubuntu), but it may also work on Windows.
+- The program is intended to run on Linux (Ubuntu).
 - The input file should be a text file (.txt) with a specific format.
 - The source text lines specify the <source_text>, and the last line specifies the <search_term>.
 - The program searches the <source_text> for matches of the <search_term> and outputs the matching lines.
@@ -14,12 +14,16 @@ This program is designed to search for matches of a search term in a source text
 The input file should have the following format:
 
 <source_text>
+
 <source_text>
+
 <source_text>
+
 <search_term>
 
 
 - The <source_text> consists of lines of strings, with each line containing three words embedded in symbols, numbers, and spaces.
+
 
 - The <search_term> is always on the last line and contains a single word.
 
@@ -31,8 +35,19 @@ A line from the source text is considered a match if any word on the line contai
 
 The program outputs the matching lines to the OS Terminal. Each line is formatted as a single-space separated square-bracket-enclosed list.
 
-- Correct Format: `[word1 word2 word3]`
-- Incorrect Formats: `[word1, word2, word3]`, `{word1 word2 word3}`, `[word1,word2,word3]`, `[word1  word2  word3]`
+- Correct Format: 
+
+`[this is ok]`
+
+- Incorrect Formats: 
+
+`[this, no, good]`
+
+`{this no good}`
+
+`[this,no,good]`
+
+`[ this no  good  ]`
 
 If there are multiple lines that match, the program outputs them in the order they appear in the source text.
 
@@ -44,16 +59,19 @@ Here are some examples to demonstrate the program's functionality:
 
 Input File:
 
+```
 cat sees me
 mary likes trees
 up the hill
 ee
+```
 
 
 Output:
 
-[cat sees me]
-[mary likes trees]
+`[cat sees me]`
+
+`[mary likes trees]`
 
 
 ### Example 2:
@@ -64,6 +82,7 @@ Input File:
 
 Input File:
 
+```
 "Alice was beginning...
 to_get9_!very
 1111tired1111of1111sitting1111
@@ -72,12 +91,13 @@ on9the bank,
 and""of""having
 nothing to do!!!
 er
-
+```
 
 Output:
 
-[to get very]
-[by her sister]
+`[to get very]`
+
+`[by her sister]`
 
 
 ## Usage
@@ -147,7 +167,6 @@ C++ Libraries and the version installed on the development machine:
 These are header-only libraries that are included as part of this project. No installation is required.
 
 - [Catch2](https://github.com/catchorg/Catch2), v2.1.2, a C++ test framework. `./test/third_party/`
-
 
 
 ## run on Windows (not tested!)
