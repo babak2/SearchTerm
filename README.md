@@ -12,7 +12,7 @@ This program is designed to search for matches of a search term in a source text
 ## Input File Format
 
 The input file should have the following format:
-
+```
 <source_text>
 
 <source_text>
@@ -20,7 +20,7 @@ The input file should have the following format:
 <source_text>
 
 <search_term>
-
+```
 
 - The <source_text> consists of lines of strings, with each line containing three words embedded in symbols, numbers, and spaces.
 
