@@ -100,12 +100,6 @@ Output:
 `[by her sister]`
 
 
-## Usage
-
-To compile and run the program, follow these steps:
-(if you have any problem, please contact babak.m.ardestani@gmail.com)
-
-
 ## To Build
 
 `g++` is the default compiler.
@@ -195,8 +189,13 @@ Here are some steps you can follow to run a program on Windows that was original
 
 - Only .txt files can be used as input files, but the program behaves properly when the wrong file type (or empty file, or file with only one line, ...) is used as input. 
 
-- ...
+## License
+
+This program is licensed under the GNU GENERAL PUBLIC LICENSE. See LICENSE for more information.
 
 
-## Next
-...
+## Author 
+
+Babak Mahdavi Ardestani
+
+babak.m.ardestani@gmail.com
