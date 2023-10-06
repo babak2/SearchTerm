@@ -165,25 +165,22 @@ These are header-only libraries that are included as part of this project. No in
 
 ## run on Windows (not tested!)
 
-This program is written on Ubuntu 20.04.5 LTS. 
-
-In the next version of the program, we will write, test and provide the necessary files and instructions for smooth exexution of Windows. 
-
-Meanwhile, it could be still possible to run the program on Windows with a few considerations and modifications you may need to make to ensure the program would run correctly.
+This program is written on Ubuntu 20.04.5 LTS. It may be still possible to run the program on Windows with a few considerations and modifications you may need to make to ensure the program would run correctly.
 
 Here are some steps you can follow to run a program on Windows that was originally written for Ubuntu:
 
-    - Install a compatible development environment: On Windows, you will need to install a development environment that supports compiling and running C++ programs. One popular option is MinGW (Minimalist GNU for Windows), which provides a Windows port of the GNU Compiler Collection (GCC) along with other necessary tools. Install MinGW or any other compatible development environment on your Windows system.
+- Install a compatible development environment: On Windows, you will need to install a development environment that supports compiling and running C++ programs. One popular option is MinGW (Minimalist GNU for Windows), which provides a Windows port of the GNU Compiler Collection (GCC) along with other necessary tools. Install MinGW or any other compatible development environment on your Windows system.
 
-    - Modify the Makefile: The Makefile may need to be modified to accommodate the differences between the build systems on Ubuntu and Windows. Specifically, you may need to update the compiler flags, library paths, and other system-specific configurations to match the Windows environment. Ensure that the Makefile is updated to work with the Windows development environment you installed.
+- Modify the Makefile: The Makefile may need to be modified to accommodate the differences between the build systems on Ubuntu and Windows. Specifically, you may need to update the compiler flags, library paths, and other system-specific configurations to match the Windows environment. Ensure that the Makefile is updated to work with the Windows development environment you installed.
 
-    - Check for system-specific code: Review the program's code and dependencies for any system-specific code that may be incompatible with Windows. For example, if your program uses Linux-specific system calls or libraries, you may need to find equivalent Windows functions or libraries.
+- Check for system-specific code: Review the program's code and dependencies for any system-specific code that may be incompatible with Windows. For example, if your program uses Linux-specific system calls or libraries, you may need to find equivalent Windows functions or libraries.
 
-    - Compile the program: Use the modified Makefile to compile the program on your Windows system. Open a terminal or command prompt, navigate to the program's directory, and run the appropriate make command (e.g., make or make all). This will compile the program using the Windows development environment.
+- Compile the program: Use the modified Makefile to compile the program on your Windows system. Open a terminal or command prompt, navigate to the program's directory, and run the appropriate make command (e.g., make or make all). This will compile the program using the Windows development environment.
 
-    -  Resolve platform-specific issues: Test the program on Windows and address any platform-specific issues that may arise. Debug any errors or inconsisteencies that are specific to the Windows environment. This may involve adjusting code, modifying library dependencies, or addressing compatibility issues.
+-  Resolve platform-specific issues: Test the program on Windows and address any platform-specific issues that may arise. Debug any errors or inconsisteencies that are specific to the Windows environment. This may involve adjusting code, modifying library dependencies, or addressing compatibility issues.
 
-    - Run the program: Once the program is successfully compiled, you should be able to run it on Windows. Execute the program from the command prompt or terminal, providing any necessary command-line arguments or inputs as required.
+- Run the program: Once the program is successfully compiled, you should be able to run it on Windows. Execute the program from the command prompt or terminal, providing any necessary command-line arguments or inputs as required.
+
 
 ## Assumptions
 
