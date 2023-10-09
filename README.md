@@ -1,6 +1,6 @@
-# Text Search Program
+# SearchTerm
 
-This program is designed to search for matches of a search term in a source text file. It takes a command-line argument specifying the input file path, which contains the source text and the search term.
+The SearchTerm program is designed to search for matches of a search term (substring) in a source text file. It takes a command-line argument specifying the input file path, which contains the source text and the search term.
 
 ## Program Requirements
 
@@ -188,7 +188,7 @@ Here are some steps you can follow to run a program on Windows that was original
 
 ## License
 
-This program is licensed under the GNU GENERAL PUBLIC LICENSE. See LICENSE for more information.
+Ths SearchTerm program is licensed under the GNU GENERAL PUBLIC LICENSE. See LICENSE for more information.
 
 
 ## Author 
