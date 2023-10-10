@@ -113,7 +113,7 @@ For more details please refer to the `Makefile`
 
 ## To Run
 
-if you are in ./build/bin directory (oe use cd to change to this directory)
+if you are in ./build/bin directory (or use cd to change to this directory)
 
 ```
 working-or-proj-directory/build/bin/$ ./solution  <path_to_txt_file>
@@ -163,9 +163,14 @@ These are header-only libraries that are included as part of this project. No in
 - [Catch2](https://github.com/catchorg/Catch2), v2.1.2, a C++ test framework. `./test/third_party/`
 
 
+## Assumptions
+
+- Only .txt files can be used as input files, but the program behaves properly when the wrong file type (or empty file, or file with only one line, ...) is used as input.
+
+  
 ## run on Windows (not tested!)
 
-This program is written on Ubuntu 20.04.5 LTS. It may be still possible to run the program on Windows with a few considerations and modifications you may need to make to ensure the program would run correctly.
+This program is written on Ubuntu 20.04.5 LTS. It may be still possible to run the program on Windows with a few considerations and modifications you may need to make to ensure the program runs correctly.
 
 Here are some steps you can follow to run a program on Windows that was originally written for Ubuntu:
 
@@ -177,18 +182,14 @@ Here are some steps you can follow to run a program on Windows that was original
 
 - Compile the program: Use the modified Makefile to compile the program on your Windows system. Open a terminal or command prompt, navigate to the program's directory, and run the appropriate make command (e.g., make or make all). This will compile the program using the Windows development environment.
 
--  Resolve platform-specific issues: Test the program on Windows and address any platform-specific issues that may arise. Debug any errors or inconsisteencies that are specific to the Windows environment. This may involve adjusting code, modifying library dependencies, or addressing compatibility issues.
+-  Resolve platform-specific issues: Test the program on Windows and address any platform-specific issues that may arise. Debug any errors or inconsistencies that are specific to the Windows environment. This may involve adjusting code, modifying library dependencies, or addressing compatibility issues.
 
 - Run the program: Once the program is successfully compiled, you should be able to run it on Windows. Execute the program from the command prompt or terminal, providing any necessary command-line arguments or inputs as required.
 
 
-## Assumptions
-
-- Only .txt files can be used as input files, but the program behaves properly when the wrong file type (or empty file, or file with only one line, ...) is used as input. 
-
 ## License
 
-Ths SearchTerm program is licensed under the GNU GENERAL PUBLIC LICENSE. See LICENSE for more information.
+The SearchTerm program is licensed under the GNU GENERAL PUBLIC LICENSE. See LICENSE for more information.
 
 
 ## Author 
