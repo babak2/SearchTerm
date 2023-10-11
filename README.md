@@ -49,7 +49,7 @@ The program outputs the matching lines to the OS Terminal. Each line is formatte
 
 `[ this no  good  ]`
 
-If there are multiple lines that match, the program outputs them in the order they appear in the source text.
+If multiple lines match, the program outputs them in the order they appear in the source text.
 
 ## Examples
 
@@ -126,7 +126,7 @@ working-or-proj-directory$ ./build/bin/solution  <path_to_txt_file>
 
 ### Input file examples
 
-there are few input .txt files for use and testing in the `working-or-proj-directory/input_files/` directory
+there are a few input .txt files for use and testing in the `working-or-proj-directory/input_files/` directory
 
 
 
@@ -136,7 +136,6 @@ We use the [Catch2](https://github.com/catchorg/Catch2) framework.
 1. Build tests:
 ```
 make test
-
 ```
 
 2. Run all tests:
@@ -163,9 +162,11 @@ These are header-only libraries that are included as part of this project. No in
 - [Catch2](https://github.com/catchorg/Catch2), v2.1.2, a C++ test framework. `./test/third_party/`
 
 
+
 ## Assumptions
 
-- Only .txt files can be used as input files, but the program behaves properly when the wrong file type (or empty file, or file with only one line, ...) is used as input.
+Only .txt files can be used as input files, but the program behaves properly when the wrong file type (or empty file, or file with only one line, ...) is used as input.
+
 
   
 ## run on Windows (not tested!)
@@ -185,6 +186,7 @@ Here are some steps you can follow to run a program on Windows that was original
 -  Resolve platform-specific issues: Test the program on Windows and address any platform-specific issues that may arise. Debug any errors or inconsistencies that are specific to the Windows environment. This may involve adjusting code, modifying library dependencies, or addressing compatibility issues.
 
 - Run the program: Once the program is successfully compiled, you should be able to run it on Windows. Execute the program from the command prompt or terminal, providing any necessary command-line arguments or inputs as required.
+
 
 
 ## License
