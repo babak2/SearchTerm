@@ -116,12 +116,12 @@ For more details please refer to the `Makefile`
 if you are in ./build/bin directory (or use cd to change to this directory)
 
 ```
-working-or-proj-directory/build/bin/$ ./solution  <path_to_txt_file>
+working-or-proj-directory/build/bin/$ ./search_term  <path_to_txt_file>
 ```
 Or (when you are in working-or-proj-directory)
 
 ```
-working-or-proj-directory$ ./build/bin/solution  <path_to_txt_file>
+working-or-proj-directory$ ./build/bin/search_term  <path_to_txt_file>
 ```
 
 ### Input file examples
