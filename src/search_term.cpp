@@ -1,6 +1,6 @@
 /*********************************************************
- * File: solution.cpp
- * Description: This file contains the main function for the solution program. It ...
+ * File: search_term.cpp
+ * Description: This file contains the main function for the search_term program. It ...
  *    - reads the source text lines from the input file
  *    - gets the search term from the user
  *    - searches for matching lines in the source text
