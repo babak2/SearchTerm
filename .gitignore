@@ -1,2 +1,7 @@
 outputs*/
 temp*/
+/build/bin/
+/build/objects/
+/build/bin/test
+/build/objects/test/
+
