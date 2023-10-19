@@ -113,20 +113,21 @@ For more details please refer to the `Makefile`
 
 ## To Run
 
-if you are in ./build/bin directory (or use cd to change to this directory)
+If you are already in ./build/bin directory (i.e. used cd to change to this directory)
 
 ```
-working-or-proj-directory/build/bin/$ ./search_term  <path_to_txt_file>
+./search_term  <path_to_txt_file>
 ```
-Or (when you are in working-or-proj-directory)
+
+Otherwise, if you are in the project/working directory: 
 
 ```
-working-or-proj-directory$ ./build/bin/search_term  <path_to_txt_file>
+./build/bin/search_term  <path_to_txt_file>
 ```
 
 ### Input file examples
 
-there are a few input .txt files for use and testing in the `working-or-proj-directory/input_files/` directory
+There are a few input .txt files for use and testing in the `/input_files` directory
 
 
 
@@ -140,17 +141,17 @@ make test
 
 2. Run all tests:
 ```
-working-or-proj-directory$ ./build/bin/test
+./build/bin/test
 ```
 
 3. List all tests:
 ```
-working-or-proj-directory$ ./build/bin/test -l
+./build/bin/test -l
 ```
 
-4. Run a specific test:
+4. Run a specific test (example):
 ```
-working-or-proj-directory$ ./build/bin/test [validateInputFile:empty-file]
+./build/bin/test [validateInputFile:empty-file]
 ```
 
 ## Dependencies
@@ -165,7 +166,7 @@ These are header-only libraries that are included as part of this project. No in
 
 ## Assumptions
 
-Only .txt files can be used as input files, but the program behaves properly when the wrong file type (or empty file, or file with only one line, ...) is used as input.
+Currently, only .txt files can be used as input files, but the program behaves properly when the wrong file type (or empty file, or file with only one line, ...) is used as input.
 
 
   
