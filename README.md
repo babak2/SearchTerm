@@ -119,7 +119,12 @@ If you are already in ./build/bin directory (i.e. used cd to change to this dire
 ./search_term  <path_to_txt_file>
 ```
 
-Otherwise, if you are in the project/working directory: 
+Example: 
+
+`./search_term  ../../input_files/input_alice.txt`
+
+
+Otherwise, if you are in your project/working directory: 
 
 ```
 ./build/bin/search_term  <path_to_txt_file>
