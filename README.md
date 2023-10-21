@@ -78,10 +78,6 @@ Output:
 
 Input File:
 
-### Example 2:
-
-Input File:
-
 ```
 "Alice was beginning...
 to_get9_!very
