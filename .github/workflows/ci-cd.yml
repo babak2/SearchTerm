@@ -23,6 +23,10 @@ jobs:
       run: |
         make
 
+    - name: Set up Catch2
+      run: |
+        git submodule update --init --recursive
+
     - name: Run Tests
       run: |
         make test
