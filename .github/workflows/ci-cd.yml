@@ -1,9 +1,9 @@
-name: C++ CI/CD
+name: C++ CI/CD with Make
 
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
@@ -13,18 +13,28 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Build
-      run: make all
+    - name: Print Repository Contents
+      run: |
+        ls -al
+        ls -al src
+        cat Makefile
 
-  test:
-    runs-on: ubuntu-latest
+    - name: Build with Make
+      run: |
+        make
 
-    needs: build
+    - name: Run Tests
+      run: |
+        make test
 
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+    - name: Display Artifacts
+      run: |
+        ls -al build
 
-    - name: Test
-      run: make test
+    - name: Deploy (Example)
+      if: success()
+      run: echo "Deployment step (replace with actual deployment commands)"
 
+    - name: Debug Statement
+      if: failure() || cancelled()
+      run: echo "The workflow failed or was cancelled."
