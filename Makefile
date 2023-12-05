@@ -1,60 +1,70 @@
-name: C++ CI/CD with Make
+# * URL: http://www.partow.net/programming/makefile/index.html *
+# make all
+# make clean
+# make program
+# make build
+# make release
+# make debug
 
-on:
-  push:
-    branches:
-      - master
+CXX       := g++
+#CXXFLAGS  := -std=c++11 -pedantic-errors -Wall -Wextra -pthread
+CXXFLAGS := -std=c++11 -pedantic-errors -Wall -Wextra -pthread -DSIGSTKSZ=16384
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+LDFLAGS  := -L/usr/lib
+BUILD    := ./build
+OBJ_DIR  := $(BUILD)/objects
+APP_DIR  := $(BUILD)/bin
+TARGET   := search_term
+INCLUDE  := -Iinclude/search_term/ -Iinclude/
 
-    steps:
-      - name: Print Repository Contents
-        run: |
-          ls -al
-          ls -al src
-          cat Makefile
 
-      - name: Print Makefile Content
-        run: cat Makefile
+SRC      :=                      \
+	$(wildcard src/common/*.cpp) \
+	$(wildcard src/*.cpp)         \
 
-      - name: Set up GCC
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.x
+OBJECTS := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
-      - name: Install GCC
-        run: sudo apt-get update && sudo apt-get install -y g++-9
+TARGET_TEST  := test
+INCLUDE_TEST := $(INCLUDE) -Itest/third_party/catch2
+SRC_TEST 	 := $(wildcard test/*.cpp)
+OBJECTS_TEST := $(filter-out $(OBJ_DIR)/src/$(TARGET).o, $(OBJECTS)) $(SRC_TEST:test/%.cpp=$(OBJ_DIR)/test/%.o)
 
-      - name: Check GCC Version
-        run: g++ --version
+.PHONY: all
+all: build $(APP_DIR)/$(TARGET)
 
-      - name: Print GitHub Workspace
-        run: echo "GitHub Workspace: $GITHUB_WORKSPACE"
+$(OBJ_DIR)/%.o: %.cpp
+	@mkdir -p $(@D)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
 
-      - name: Change Directory
-        run: cd $GITHUB_WORKSPACE
+$(APP_DIR)/$(TARGET): $(OBJECTS)
+	@mkdir -p $(@D)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) $(LDFLAGS) -o $(APP_DIR)/$(TARGET) $(OBJECTS) $(LDLIBS)
 
-      - name: Print Current Directory
-        run: pwd
 
-      - name: Build
-        run: make
+.PHONY: test
 
-      - name: Set up Catch2
-        run: git submodule update --init --recursive
+test: build $(APP_DIR)/$(TARGET_TEST)
 
-      - name: Run Tests
-        run: make test
+$(OBJ_DIR)/test/%.o: test/%.cpp
+	@mkdir -p $(@D)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
 
-      - name: Display Artifacts
-        run: ls -al build
+$(APP_DIR)/$(TARGET_TEST): $(OBJECTS_TEST)
+	@mkdir -p $(@D)
+	$(CXX) $(CXXFLAGS) $(INCLUDE_TEST) $(LDFLAGS) -o $(APP_DIR)/$(TARGET_TEST) $(OBJECTS_TEST) $(LDLIBS)
 
-      - name: Deploy (Example)
-        if: success()
-        run: echo "Deployment step (replace with actual deployment commands)"
 
-      - name: Debug Statement
-        if: failure() || cancelled()
-        run: echo "The workflow failed or was cancelled."
+.PHONY: build clean
+build:
+	@mkdir -p $(APP_DIR)
+	@mkdir -p $(OBJ_DIR)
+
+debug: CXXFLAGS += -DDEBUG -g
+debug: all
+
+release: CXXFLAGS += -O3
+release: all
+
+clean:
+	@rm -r $(OBJ_DIR)/*
+	@rm -r $(APP_DIR)/*	
