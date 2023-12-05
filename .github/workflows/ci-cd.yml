@@ -10,13 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Enable debug
-        run: echo "MAKEFLAGS=--debug=b" >> $GITHUB_ENV && echo "MAKELEVEL=0" >> $GITHUB_ENV
-        shell: bash
-
-      - name: Print Working Directory
-        run: pwd
-        working-directory: ${{ github.workspace }}
+      - name: Print Repository Contents
+        run: |
+          ls -al
+          ls -al src
+          cat Makefile
 
       - name: Set up GCC
         uses: actions/setup-python@v2
@@ -25,49 +23,32 @@ jobs:
 
       - name: Install GCC
         run: sudo apt-get update && sudo apt-get install -y g++-9
-        working-directory: ${{ github.workspace }}
 
       - name: Check GCC Version
         run: g++ --version
-        working-directory: ${{ github.workspace }}
+
+      - name: Change Directory
+        run: cd $GITHUB_WORKSPACE
+
+      - name: Print Current Directory
+        run: pwd
 
       - name: Build
-        run: make
-        working-directory: ${{ github.workspace }}
-
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Print Repository Contents
-        run: |
-          ls -al
-          ls -al src
-          cat Makefile
-        working-directory: ${{ github.workspace }}
-
-      - name: Build with Make
-        run: make
-        working-directory: ${{ github.workspace }}
+        run: make -f Makefile
 
       - name: Set up Catch2
-        run: |
-          git submodule update --init --recursive
-        working-directory: ${{ github.workspace }}
+        run: git submodule update --init --recursive
 
       - name: Run Tests
-        run: make test
-        working-directory: ${{ github.workspace }}
+        run: make -f Makefile test
 
       - name: Display Artifacts
         run: ls -al build
-        working-directory: ${{ github.workspace }}
 
       - name: Deploy (Example)
         if: success()
         run: echo "Deployment step (replace with actual deployment commands)"
-        working-directory: ${{ github.workspace }}
 
       - name: Debug Statement
         if: failure() || cancelled()
         run: echo "The workflow failed or was cancelled."
-        working-directory: ${{ github.workspace }}
