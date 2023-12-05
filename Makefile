@@ -1,70 +1,75 @@
-# * URL: http://www.partow.net/programming/makefile/index.html *
-# make all
-# make clean
-# make program
-# make build
-# make release
-# make debug
+name: C++ CI/CD with Make
 
-CXX       := g++
-#CXXFLAGS  := -std=c++11 -pedantic-errors -Wall -Wextra -pthread
-CXXFLAGS := -std=c++11 -pedantic-errors -Wall -Wextra -pthread -DSIGSTKSZ=16384
+on:
+  push:
+    branches:
+      - master
 
-LDFLAGS  := -L/usr/lib
-BUILD    := ./build
-OBJ_DIR  := $(BUILD)/objects
-APP_DIR  := $(BUILD)/bin
-TARGET   := search_term
-INCLUDE  := -Iinclude/search_term/ -Iinclude/
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Enable debug
+        run: |
+          echo "::set-env name=MAKEFLAGS::--debug=b"
+          echo "::set-env name=MAKELEVEL::0"
+        shell: bash
+        
+      - name: Print Working Directory and Contents
+        run: |
+          pwd
+          ls -al
+        working-directory: ${{ github.workspace }}
 
-SRC      :=                      \
-	$(wildcard src/common/*.cpp) \
-	$(wildcard src/*.cpp)         \
+      - name: Set up GCC
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
 
-OBJECTS := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
+      - name: Install GCC
+        run: sudo apt-get update && sudo apt-get install -y g++-9
 
-TARGET_TEST  := test
-INCLUDE_TEST := $(INCLUDE) -Itest/third_party/catch2
-SRC_TEST 	 := $(wildcard test/*.cpp)
-OBJECTS_TEST := $(filter-out $(OBJ_DIR)/src/$(TARGET).o, $(OBJECTS)) $(SRC_TEST:test/%.cpp=$(OBJ_DIR)/test/%.o)
+      - name: Check GCC Version
+        run: g++ --version
 
-.PHONY: all
-all: build $(APP_DIR)/$(TARGET)
+      - name: Build
+        run: make all
+        working-directory: ${{ github.workspace }}
 
-$(OBJ_DIR)/%.o: %.cpp
-	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-$(APP_DIR)/$(TARGET): $(OBJECTS)
-	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) $(INCLUDE) $(LDFLAGS) -o $(APP_DIR)/$(TARGET) $(OBJECTS) $(LDLIBS)
+      - name: Print Repository Contents
+        run: |
+          ls -al
+          ls -al src
+          cat Makefile
+        working-directory: ${{ github.workspace }}
 
+      - name: Build with Make
+        run: make
+        working-directory: ${{ github.workspace }}
 
-.PHONY: test
+      - name: Set up Catch2
+        run: |
+          git submodule update --init --recursive
+        working-directory: ${{ github.workspace }}
 
-test: build $(APP_DIR)/$(TARGET_TEST)
+      - name: Run Tests
+        run: make test
+        working-directory: ${{ github.workspace }}
 
-$(OBJ_DIR)/test/%.o: test/%.cpp
-	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
+      - name: Display Artifacts
+        run: |
+          ls -al build
+        working-directory: ${{ github.workspace }}
 
-$(APP_DIR)/$(TARGET_TEST): $(OBJECTS_TEST)
-	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) $(INCLUDE_TEST) $(LDFLAGS) -o $(APP_DIR)/$(TARGET_TEST) $(OBJECTS_TEST) $(LDLIBS)
+      - name: Deploy (Example)
+        if: success()
+        run: echo "Deployment step (replace with actual deployment commands)"
+        working-directory: ${{ github.workspace }}
 
-
-.PHONY: build clean
-build:
-	@mkdir -p $(APP_DIR)
-	@mkdir -p $(OBJ_DIR)
-
-debug: CXXFLAGS += -DDEBUG -g
-debug: all
-
-release: CXXFLAGS += -O3
-release: all
-
-clean:
-	@rm -r $(OBJ_DIR)/*
-	@rm -r $(APP_DIR)/*	
+      - name: Debug Statement
+        if: failure() || cancelled()
+        run: echo "The workflow failed or was cancelled."
