@@ -7317,7 +7317,9 @@ namespace Catch {
     bool FatalConditionHandler::isSet = false;
     struct sigaction FatalConditionHandler::oldSigActions[sizeof(signalDefs)/sizeof(SignalDefs)] = {};
     stack_t FatalConditionHandler::oldSigStack = {};
-    char FatalConditionHandler::altStackMem[SIGSTKSZ] = {};
+    //char FatalConditionHandler::altStackMem[SIGSTKSZ] = {};
+    constexpr std::size_t AltStackMemSize = 8192; // You can adjust the size if needed
+    char FatalConditionHandler::altStackMem[AltStackMemSize] = {};
 
 } // namespace Catch
 
