@@ -7,7 +7,8 @@
 # make debug
 
 CXX       := g++
-CXXFLAGS  := -std=c++11 -pedantic-errors -Wall -Wextra -pthread
+#CXXFLAGS  := -std=c++11 -pedantic-errors -Wall -Wextra -pthread
+CXXFLAGS  := -std=c++11 -pedantic-errors -Wall -Wextra -pthread -DSIGSTKSZ=8192
 
 LDFLAGS  := -L/usr/lib
 BUILD    := ./build
@@ -15,6 +16,8 @@ OBJ_DIR  := $(BUILD)/objects
 APP_DIR  := $(BUILD)/bin
 TARGET   := search_term
 INCLUDE  := -Iinclude/search_term/ -Iinclude/
+
+
 SRC      :=                      \
 	$(wildcard src/common/*.cpp) \
 	$(wildcard src/*.cpp)         \
