@@ -25,9 +25,11 @@ jobs:
 
       - name: Install GCC
         run: sudo apt-get update && sudo apt-get install -y g++-9
+        working-directory: ${{ github.workspace }}
 
       - name: Check GCC Version
         run: g++ --version
+        working-directory: ${{ github.workspace }}
 
       - name: Build
         run: make
@@ -41,6 +43,7 @@ jobs:
           ls -al
           ls -al src
           cat Makefile
+        working-directory: ${{ github.workspace }}
 
       - name: Build with Make
         run: make
@@ -49,6 +52,7 @@ jobs:
       - name: Set up Catch2
         run: |
           git submodule update --init --recursive
+        working-directory: ${{ github.workspace }}
 
       - name: Run Tests
         run: make test
@@ -61,7 +65,9 @@ jobs:
       - name: Deploy (Example)
         if: success()
         run: echo "Deployment step (replace with actual deployment commands)"
+        working-directory: ${{ github.workspace }}
 
       - name: Debug Statement
         if: failure() || cancelled()
         run: echo "The workflow failed or was cancelled."
+        working-directory: ${{ github.workspace }}
