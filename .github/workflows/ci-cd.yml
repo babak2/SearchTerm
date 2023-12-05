@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        gcc-version: [9]
+        gcc-version: [9.4.0]
 
     steps:
       - name: Set up GCC
@@ -20,12 +20,12 @@ jobs:
           python-version: 3.x
 
       - name: Install GCC
-        run: sudo apt-get install -y "gcc-9" "g++-9"
+        run: sudo apt-get install -y "gcc-${{ matrix.gcc-version }}" "g++-${{ matrix.gcc-version }}"
 
       - name: Check GCC Version
         run: |
-          gcc-9 --version
-          g++-9 --version
+          gcc --version
+          g++ --version
 
       - name: Build
         run: make
