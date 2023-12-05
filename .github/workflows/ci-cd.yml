@@ -8,9 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        gcc-version: [9.4.0]
+        gcc-version: [9]
 
     steps:
       - name: Set up GCC
@@ -19,12 +20,12 @@ jobs:
           python-version: 3.x
 
       - name: Install GCC
-        run: sudo apt-get install -y "gcc-${{ matrix.gcc-version }}" "g++-${{ matrix.gcc-version }}"
+        run: sudo apt-get install -y "gcc-9" "g++-9"
 
       - name: Check GCC Version
         run: |
-          gcc --version
-          g++ --version
+          gcc-9 --version
+          g++-9 --version
 
       - name: Build
         run: make
@@ -39,16 +40,20 @@ jobs:
           cat Makefile
 
       - name: Build with Make
-        run: make
+        run: |
+          make
 
       - name: Set up Catch2
-        run: git submodule update --init --recursive
+        run: |
+          git submodule update --init --recursive
 
       - name: Run Tests
-        run: make test
+        run: |
+          make test
 
       - name: Display Artifacts
-        run: ls -al build
+        run: |
+          ls -al build
 
       - name: Deploy (Example)
         if: success()
