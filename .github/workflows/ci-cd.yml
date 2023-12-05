@@ -8,56 +8,52 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
-  strategy:
-    matrix:
-      gcc-version: [9.4.0]
+    strategy:
+      matrix:
+        gcc-version: [9.4.0]
 
     steps:
-
       - name: Set up GCC
         uses: actions/setup-python@v2
         with:
           python-version: 3.x
-          
-     - name: Install GCC
+
+      - name: Install GCC
         run: sudo apt-get install -y "gcc-${{ matrix.gcc-version }}" "g++-${{ matrix.gcc-version }}"
-        
-     - name: Check GCC Version
-        run: gcc --version && g++ --version
-        
-     - name: Build
+
+      - name: Check GCC Version
+        run: |
+          gcc --version
+          g++ --version
+
+      - name: Build
         run: make
-    
-    - name: Checkout Repository
-      uses: actions/checkout@v2
 
-    - name: Print Repository Contents
-      run: |
-        ls -al
-        ls -al src
-        cat Makefile
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Build with Make
-      run: |
-        make
+      - name: Print Repository Contents
+        run: |
+          ls -al
+          ls -al src
+          cat Makefile
 
-    - name: Set up Catch2
-      run: |
-        git submodule update --init --recursive
+      - name: Build with Make
+        run: make
 
-    - name: Run Tests
-      run: |
-        make test
+      - name: Set up Catch2
+        run: git submodule update --init --recursive
 
-    - name: Display Artifacts
-      run: |
-        ls -al build
+      - name: Run Tests
+        run: make test
 
-    - name: Deploy (Example)
-      if: success()
-      run: echo "Deployment step (replace with actual deployment commands)"
+      - name: Display Artifacts
+        run: ls -al build
 
-    - name: Debug Statement
-      if: failure() || cancelled()
-      run: echo "The workflow failed or was cancelled."
+      - name: Deploy (Example)
+        if: success()
+        run: echo "Deployment step (replace with actual deployment commands)"
+
+      - name: Debug Statement
+        if: failure() || cancelled()
+        run: echo "The workflow failed or was cancelled."
