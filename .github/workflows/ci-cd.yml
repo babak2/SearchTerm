@@ -10,6 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Enable debug
+        run: |
+          echo "::set-env name=MAKEFLAGS::--debug=b"
+          echo "::set-env name=MAKELEVEL::0"
+        shell: bash
+        
       - name: Set up GCC
         uses: actions/setup-python@v2
         with:
