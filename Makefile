@@ -8,7 +8,6 @@
 
 CXX       := g++
 #CXXFLAGS  := -std=c++11 -pedantic-errors -Wall -Wextra -pthread
-#CXXFLAGS  := -std=c++11 -pedantic-errors -Wall -Wextra -pthread -DSIGSTKSZ=8192
 CXXFLAGS := -std=c++11 -pedantic-errors -Wall -Wextra -pthread -DSIGSTKSZ=16384
 
 LDFLAGS  := -L/usr/lib
