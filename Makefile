@@ -30,6 +30,15 @@ jobs:
       - name: Check GCC Version
         run: g++ --version
 
+      - name: Print GitHub Workspace
+        run: echo "GitHub Workspace: $GITHUB_WORKSPACE"
+
+      - name: Change Directory
+        run: cd $GITHUB_WORKSPACE
+
+      - name: Print Current Directory
+        run: pwd
+
       - name: Build
         run: make
 
@@ -49,4 +58,3 @@ jobs:
       - name: Debug Statement
         if: failure() || cancelled()
         run: echo "The workflow failed or was cancelled."
-
