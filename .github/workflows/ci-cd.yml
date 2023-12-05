@@ -11,14 +11,12 @@ jobs:
 
     steps:
       - name: Enable debug
-        run: |
-          echo "::set-env name=MAKEFLAGS::--debug=b"
-          echo "::set-env name=MAKELEVEL::0"
+        run: echo "MAKEFLAGS=--debug=b" >> $GITHUB_ENV && echo "MAKELEVEL=0" >> $GITHUB_ENV
         shell: bash
 
       - name: Print Working Directory
         run: pwd
-        working-directory: ${{ github.workspace }}  # Set the working directory to the repository root
+        working-directory: ${{ github.workspace }}
 
       - name: Set up GCC
         uses: actions/setup-python@v2
@@ -33,7 +31,7 @@ jobs:
 
       - name: Build
         run: make
-        working-directory: ${{ github.workspace }}  # Set the working directory to the repository root
+        working-directory: ${{ github.workspace }}
 
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -46,21 +44,19 @@ jobs:
 
       - name: Build with Make
         run: make
-        working-directory: ${{ github.workspace }}  # Set the working directory to the repository root
+        working-directory: ${{ github.workspace }}
 
       - name: Set up Catch2
         run: |
           git submodule update --init --recursive
 
       - name: Run Tests
-        run: |
-          make test
-        working-directory: ${{ github.workspace }}  # Set the working directory to the repository root
+        run: make test
+        working-directory: ${{ github.workspace }}
 
       - name: Display Artifacts
-        run: |
-          ls -al build
-        working-directory: ${{ github.workspace }}  # Set the working directory to the repository root
+        run: ls -al build
+        working-directory: ${{ github.workspace }}
 
       - name: Deploy (Example)
         if: success()
