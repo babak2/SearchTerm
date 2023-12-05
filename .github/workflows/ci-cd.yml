@@ -9,11 +9,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      MAKEFLAGS: "--debug=b"
-      MAKELEVEL: 0
-
     steps:
+      - name: Enable debug
+        run: |
+          echo "::set-env name=MAKEFLAGS::--debug=b"
+          echo "::set-env name=MAKELEVEL::0"
+        shell: bash
+
+      - name: Print Working Directory
+        run: pwd
+        working-directory: ${{ github.workspace }}  # Set the working directory to the repository root
+
       - name: Set up GCC
         uses: actions/setup-python@v2
         with:
@@ -24,12 +30,6 @@ jobs:
 
       - name: Check GCC Version
         run: g++ --version
-
-      - name: Enable debug
-        run: |
-          echo "MAKEFLAGS=$MAKEFLAGS" >> $GITHUB_ENV
-          echo "MAKELEVEL=$MAKELEVEL" >> $GITHUB_ENV
-        shell: bash
 
       - name: Build
         run: make
@@ -53,7 +53,8 @@ jobs:
           git submodule update --init --recursive
 
       - name: Run Tests
-        run: make test
+        run: |
+          make test
         working-directory: ${{ github.workspace }}  # Set the working directory to the repository root
 
       - name: Display Artifacts
