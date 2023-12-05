@@ -1,1 +1,0 @@
-test to trigger GitHbu actions (ci-cd) test6\12
