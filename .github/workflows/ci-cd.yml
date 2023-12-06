@@ -1,7 +1,9 @@
+name: Build and Push Docker Image
+
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -11,48 +13,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Print Repository Contents
-        run: |
-          ls -al
-          ls -al src
-          cat Makefile
-
-      - name: Set up GCC
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.x
-
-      - name: Install GCC
-        run: sudo apt-get update && sudo apt-get install -y g++-9
-
-      - name: Check GCC Version
-        run: g++ --version
-
-      - name: Change Directory
-        run: cd $GITHUB_WORKSPACE
-
-      - name: Print Current Directory
-        run: pwd
-
-      - name: Build
-        run: make -f Makefile
-
-      - name: Set up Catch2
-        run: git submodule update --init --recursive
-
-      - name: Run Tests
-        run: make -f Makefile test
-
-      - name: Display Artifacts
-        run: ls -al build
+      - name: Login to Container Registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build Docker Image
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          docker build -t my-app:latest .
-          docker tag my-app:latest ghcr.io/${{ github.repository_owner }}/my-app:latest
-          docker push ghcr.io/${{ github.repository_owner }}/my-app:latest
-        env:
-          DOCKER_USERNAME: ${{ github.actor }}
-          DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+        run: docker build -t ghcr.io/${{ github.repository }}/search-term-docker-image:latest .
 
+      - name: Tag Docker Image
+        run: docker tag ghcr.io/${{ github.repository }}/search-term-docker-image:latest ghcr.io/${{ github.repository }}/search-term-docker-image:latest
+
+      - name: Push Docker Image
+        run: docker push ghcr.io/${{ github.repository }}/search-term-docker-image:latest
