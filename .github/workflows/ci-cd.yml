@@ -1,9 +1,9 @@
-name: C++ CI/CD with Docker
+name: C++ CI/CD with Make and Docker
 
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
@@ -30,9 +30,30 @@ jobs:
       - name: Check GCC Version
         run: g++ --version
 
-      - name: Build Docker Image
+      - name: Change Directory
+        run: cd $GITHUB_WORKSPACE
+
+      - name: Print Current Directory
+        run: pwd
+
+      - name: Build
+        run: make -f Makefile
+
+      - name: Set up Catch2
+        run: git submodule update --init --recursive
+
+      - name: Run Tests
+        run: make -f Makefile test
+
+      - name: Display Artifacts
+        run: ls -al build
+
+      - name: Docker Build, Tag, and Push
         run: |
+          echo "$DOCKER_PASSWORD" | docker login ghcr.io -u $DOCKER_USERNAME --password-stdin
           docker build -t my-app:latest .
-          echo "***" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          docker tag my-app:latest ghcr.io/${{ github.repository_owner }}/my-app:latest
-          docker push ghcr.io/${{ github.repository_owner }}/my-app:latest
+          docker tag my-app:latest ghcr.io/babak2/my-app:latest
+          docker push ghcr.io/babak2/my-app:latest
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
