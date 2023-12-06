@@ -1,4 +1,4 @@
-name: C++ CI/CD with Make
+name: C++ CI/CD with Make and Docker
 
 on:
   push:
@@ -48,6 +48,15 @@ jobs:
       - name: Display Artifacts
         run: ls -al build
 
+      - name: Build Docker image
+        run: docker build -t my-app:latest .
+
+      - name: Push Docker image to registry
+        run: |
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+          docker tag my-app:latest my-registry/my-app:latest
+          docker push my-registry/my-app:latest
+
       - name: Deploy (Example)
         if: success()
         run: echo "Deployment step (replace with actual deployment commands)"
@@ -55,3 +64,4 @@ jobs:
       - name: Debug Statement
         if: failure() || cancelled()
         run: echo "The workflow failed or was cancelled."
+
