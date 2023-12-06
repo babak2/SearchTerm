@@ -156,7 +156,9 @@ make test
 ```
 
 ## Dependencies
-C++ Libraries and the version installed on the development machine:
+C++ Libraries and the version installed on the development machine.
+
+Make sure you have Docker installed (if Docker is used)
 
 ### .hpp Dependencies
 These are header-only libraries that are included as part of this project. No installation is required.
@@ -168,6 +170,74 @@ These are header-only libraries that are included as part of this project. No in
 ## Assumptions
 
 Currently, only .txt files can be used as input files, but the program behaves properly when the wrong file type (or empty file, or file with only one line, ...) is used as input.
+
+
+# Docker 
+
+## Build Docker Image:
+
+Build the Docker image using the provided Dockerfile (Make sure you have Docker installed).
+
+```
+docker build -t my-app:latest .
+```
+
+Replace my-app with your desired image name.
+
+
+## Run Docker Container:
+
+Run the Docker container with the built image. You can specify additional options like mounting volumes or setting environment variables.
+
+```
+docker run -it my-app
+```
+
+Replace my-app with your actual image name.
+
+
+## Additional Options:
+
+
+To run the container in the background, add the -d option:
+
+```
+docker run -d my-app
+```
+
+To map a port from the host to the container, use the -p option:
+
+```
+docker run -p 8080:80 my-app
+```
+
+Customize the Docker run command based on your project's requirements.
+
+## Access the Application:
+
+Open a web browser or make requests to the exposed ports to interact with your application.
+
+
+## Stopping the Container:
+
+To stop the running container, use the following command:
+
+```
+docker stop <container-id-or-name>
+```
+
+Replace <container-id-or-name> with the actual ID or name of the running container.
+
+
+## Cleaning Up:
+
+If you want to remove the stopped container and the built image, use the following commands:
+
+`docker rm <container-id-or-name>`
+
+`docker rmi my-app`
+
+Replace <container-id-or-name> with the actual ID or name of the container you want to remove.
 
 
 # CI/CD Pipeline
