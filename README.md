@@ -197,7 +197,7 @@ The pipeline installs and verifies dependencies to ensure a consistent environme
 
 I welcome feedback and contributions to enhance the efficiency and effectiveness of our CI/CD pipeline.
 
-Feel free to explore the [Actions tab](link-to-ci-cd-actions-tab) for more details on specific workflow runs and results.
+Feel free to explore the [Actions tab](https://github.com/babak2/SearchTerm/actions) for more details on specific workflow runs and results.
 
 
   
