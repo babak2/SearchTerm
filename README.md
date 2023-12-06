@@ -170,6 +170,36 @@ These are header-only libraries that are included as part of this project. No in
 Currently, only .txt files can be used as input files, but the program behaves properly when the wrong file type (or empty file, or file with only one line, ...) is used as input.
 
 
+# CI/CD Pipeline
+
+This project utilizes a Continuous Integration and Continuous Deployment (CI/CD) pipeline to automate the build, test, and deployment processes. The pipeline is designed to ensure code quality, catch issues early, and facilitate a smoother development workflow.
+
+## Build Status
+
+[![Build Status](https://github.com/babak2/SearchTerm/blob/master/.github/workflows/ci-cd.yml)](https://github.com/babak2/SearchTerm/actions)
+
+
+## CI/CD Configuration
+
+The CI/CD workflow is defined in the [`.github/workflows/ci-cd.yml`](.github/workflows/ci-cd.yml) file. This configuration file specifies the steps and triggers for each phase of the pipeline.
+
+## Branches and Triggers
+
+- **Main Branch:** CI/CD is triggered automatically for changes pushed to the main branch.
+- **Feature Branches:** Additional CI/CD checks are performed on feature branches before merging.
+
+## Dependencies
+
+The pipeline installs and verifies dependencies to ensure a consistent environment during builds and tests.
+
+
+## Feedback and Improvements
+
+I welcome feedback and contributions to enhance the efficiency and effectiveness of our CI/CD pipeline.
+
+Feel free to explore the [Actions tab](link-to-ci-cd-actions-tab) for more details on specific workflow runs and results.
+
+
   
 ## run on Windows (not tested!)
 
