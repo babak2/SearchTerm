@@ -48,13 +48,20 @@ jobs:
       - name: Display Artifacts
         run: ls -al build
 
-      - name: Docker Build, Tag, and Push
-        run: |
-          echo "$DOCKER_PASSWORD" | docker login ghcr.io -u $DOCKER_USERNAME --password-stdin
-          docker build -t my-app:latest .
-          docker tag my-app:latest ghcr.io/babak2/my-app:latest
-          docker push ghcr.io/babak2/my-app:latest
+      - name: Build and Push Docker Image
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          echo "$DOCKER_PASSWORD" | docker login ghcr.io -u $DOCKER_USERNAME --password-stdin
+          docker build -t ghcr.io/babak2/my-app:latest .
+          docker push ghcr.io/babak2/my-app:latest
+
+      - name: Deploy (Example)
+        if: success()
+        run: echo "Deployment step (replace with actual deployment commands)"
+
+      - name: Debug Statement
+        if: failure() || cancelled()
+        run: echo "The workflow failed or was cancelled."
 
