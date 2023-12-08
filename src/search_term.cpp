@@ -37,11 +37,15 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+  
     // Read the source text lines from the input file
     std::vector<std::vector<std::string>> sourceTextLines = readSourceTextLines(inputFile);
 
-    // Get the search term from the user
+    // Get the search term from the input source
     std::string searchTerm = getSearchTerm(sourceTextLines);
+
+    // @TODO: Implements an additional option of getting the source text as well as the 
+    // search term directly from the user, either from the terminal or a GUI
 
     // Search for matching lines in the source text
     std::vector<std::vector<std::string>> matchingLines = searchSourceText(sourceTextLines, searchTerm);
